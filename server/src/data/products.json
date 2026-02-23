@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Laptop 15\" 8GB RAM",
+    "description": "Laptop para trabajo y estudio.",
+    "category": "laptops",
+    "price": 4299,
+    "stock": 6
+  },
+  {
+    "id": 2,
+    "name": "Teclado mecanico inalambrico",
+    "description": "Teclado compacto para productividad y gaming casual.",
+    "category": "peripherals",
+    "price": 649,
+    "stock": 12
+  },
+  {
+    "id": 3,
+    "name": "Mouse ergonomico",
+    "description": "Mouse comodo para uso diario.",
+    "category": "peripherals",
+    "price": 299,
+    "stock": 15
+  },
+  {
+    "id": 4,
+    "name": "Hub USB-C 4 en 1",
+    "description": "Adaptador para expandir puertos.",
+    "category": "accessories",
+    "price": 249,
+    "stock": 20
+  },
+  {
+    "id": 5,
+    "name": "Audifonos con cancelacion de ruido",
+    "description": "Audio claro para trabajo y entretenimiento.",
+    "category": "audio",
+    "price": 899,
+    "stock": 8
+  }
+]

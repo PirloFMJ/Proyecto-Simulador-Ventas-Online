@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "Jorge Folgar",
+    "email": "jfolgarm3@miumg.edu.gt",
+    "password": "1234",
+    "role": "admin"
+  },
+  {
+    "id": 2,
+    "name": "Ricardo Estrada",
+    "email": "folgar.jorgemario@gmail.com",
+    "password": "1234",
+    "role": "customer"
+  }
+]
