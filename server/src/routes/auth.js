@@ -2,6 +2,7 @@ const express = require("express");
 const fs = require("fs").promises;
 const path = require("path");
 const jwt = require("jsonwebtoken");
+const authMiddleware = require("../middleware/auth");
 
 const router = express.Router();
 const USERS_PATH = path.join(__dirname, "../data/users.json");
@@ -106,6 +107,14 @@ router.post("/login", async (req, res) => {
       message: "Error al iniciar sesión."
     });
   }
+});
+
+// GET /api/auth/me — devuelve el usuario actual si el token es válido 
+router.get("/me", authMiddleware, (req, res) => {
+  res.status(200).json({
+    success: true,
+    user: req.user
+  });
 });
 
 module.exports = router;
