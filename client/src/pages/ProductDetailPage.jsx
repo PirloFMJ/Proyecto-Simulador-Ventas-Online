@@ -1,6 +1,7 @@
 // MARK: ProductDetailPage - detalle de un producto individual
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import Layout from "../components/Layout";
 
 // URL base del backend para las llamadas a la API
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
@@ -49,61 +50,50 @@ function ProductDetailPage() {
   }, [id]);
 
   return (
-    <div className="product-detail-page">
-      <header className="products-header">
-        <div className="products-brand">
-          <span className="products-logo">⏚</span>
-          <Link to="/" className="products-title-link">
-            <span className="products-title">Circuit</span>
-          </Link>
-        </div>
-        <nav className="products-nav">
+    <Layout
+      mainClassName="product-detail-main"
+      rightSlot={
+        <>
           <Link to="/login" className="products-nav-link">
             Iniciar sesión
           </Link>
           <Link to="/register" className="products-nav-link">
             Crear cuenta
           </Link>
-        </nav>
-      </header>
+        </>
+      }
+    >
+      <Link to="/" className="product-back-link">
+        ← Volver al catálogo
+      </Link>
 
-      <main className="product-detail-main">
-        <Link to="/" className="product-back-link">
-          ← Volver al catálogo
-        </Link>
+      {loading && <p>Cargando producto...</p>}
+      {error && <p className="products-error">{error}</p>}
 
-        {loading && <p>Cargando producto...</p>}
-        {error && <p className="products-error">{error}</p>}
-
-        {!loading && !error && product && (
-          <article className="product-detail-card">
-            <div className="product-detail-header">
-              <span className="product-category">
-                {formatCategory(product.category)}
+      {!loading && !error && product && (
+        <article className="product-detail-card">
+          <div className="product-detail-header">
+            <span className="product-category">
+              {formatCategory(product.category)}
+            </span>
+            <h1 className="product-detail-name">{product.name}</h1>
+          </div>
+          <p className="product-detail-description">{product.description}</p>
+          <div className="product-detail-meta">
+            <div>
+              <span className="product-detail-label">Precio</span>
+              <span className="product-detail-value">Q {product.price}</span>
+            </div>
+            <div>
+              <span className="product-detail-label">Stock disponible</span>
+              <span className="product-detail-value">
+                {product.stock}
               </span>
-              <h1 className="product-detail-name">{product.name}</h1>
             </div>
-            <p className="product-detail-description">
-              {product.description}
-            </p>
-            <div className="product-detail-meta">
-              <div>
-                <span className="product-detail-label">Precio</span>
-                <span className="product-detail-value">
-                  Q {product.price}
-                </span>
-              </div>
-              <div>
-                <span className="product-detail-label">Stock disponible</span>
-                <span className="product-detail-value">
-                  {product.stock}
-                </span>
-              </div>
-            </div>
-          </article>
-        )}
-      </main>
-    </div>
+          </div>
+        </article>
+      )}
+    </Layout>
   );
 }
 

@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
+import Layout from "../components/Layout";
+import CartSummary from "../components/CartSummary";
 
 // URL base del backend para la llamada de checkout
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
@@ -52,67 +54,54 @@ function CheckoutPage() {
   };
 
   return (
-    <div className="checkout-page">
-      <header className="products-header">
-        <div className="products-brand">
-          <span className="products-logo">⏚</span>
-          <Link to="/" className="products-title-link">
-            <span className="products-title">Circuit</span>
-          </Link>
-        </div>
-        <nav className="products-nav">
-          <Link to="/" className="products-nav-link">
-            Catálogo
-          </Link>
-        </nav>
-      </header>
-
-      <main className="checkout-main">
-        <h1>Checkout</h1>
-
-        <Link to="/carrito" className="product-back-link">
-          ← Volver al carrito
+    <Layout
+      mainClassName="checkout-main"
+      rightSlot={
+        <Link to="/" className="products-nav-link">
+          Catálogo
         </Link>
+      }
+    >
+      <h1>Checkout</h1>
 
-        {items.length === 0 ? (
-          <p>Tu carrito está vacío.</p>
-        ) : (
-          <>
-            {error && <div className="auth-error">{error}</div>}
-            {success && <div className="auth-success">{success}</div>}
+      <Link to="/carrito" className="product-back-link">
+        ← Volver al carrito
+      </Link>
 
-            <ul className="cart-list">
-              {items.map((item) => (
-                <li key={item.productId} className="cart-item">
-                  <div>
-                    <div className="cart-item-name">{item.name}</div>
-                    <div className="cart-item-price">
-                      Q {item.price} x {item.quantity} = Q{" "}
-                      {item.price * item.quantity}
-                    </div>
+      {items.length === 0 ? (
+        <p>Tu carrito está vacío.</p>
+      ) : (
+        <>
+          {error && <div className="auth-error">{error}</div>}
+          {success && <div className="auth-success">{success}</div>}
+
+          <ul className="cart-list">
+            {items.map((item) => (
+              <li key={item.productId} className="cart-item">
+                <div>
+                  <div className="cart-item-name">{item.name}</div>
+                  <div className="cart-item-price">
+                    Q {item.price} x {item.quantity} = Q{" "}
+                    {item.price * item.quantity}
                   </div>
-                </li>
-              ))}
-            </ul>
+                </div>
+              </li>
+            ))}
+          </ul>
 
-            <div className="cart-summary">
-              <div className="cart-total">
-                <span>Total</span>
-                <span>Q {total}</span>
-              </div>
-              <button
-                type="button"
-                className="auth-button"
-                onClick={handleConfirm}
-                disabled={loading}
-              >
-                {loading ? "Procesando..." : "Confirmar pago"}
-              </button>
-            </div>
-          </>
-        )}
-      </main>
-    </div>
+          <CartSummary total={total}>
+            <button
+              type="button"
+              className="auth-button"
+              onClick={handleConfirm}
+              disabled={loading}
+            >
+              {loading ? "Procesando..." : "Confirmar pago"}
+            </button>
+          </CartSummary>
+        </>
+      )}
+    </Layout>
   );
 }
 

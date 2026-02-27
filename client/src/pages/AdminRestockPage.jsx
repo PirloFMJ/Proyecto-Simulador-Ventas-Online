@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import Layout from "../components/Layout";
 
 // URL base del backend para las llamadas de administración
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
@@ -70,64 +71,55 @@ function AdminRestockPage() {
   };
 
   return (
-    <div className="admin-page">
-      <header className="products-header">
-        <div className="products-brand">
-          <span className="products-logo">⏚</span>
-          <Link to="/" className="products-title-link">
-            <span className="products-title">Circuit</span>
-          </Link>
-        </div>
-        <nav className="products-nav">
-          <span className="products-nav-link">
-            Admin: {user?.name || "Desconocido"}
-          </span>
-        </nav>
-      </header>
+    <Layout
+      mainClassName="admin-main"
+      rightSlot={
+        <span className="products-nav-link">
+          Admin: {user?.name || "Desconocido"}
+        </span>
+      }
+    >
+      <h1>Restock de productos</h1>
+      <p className="admin-subtitle">
+        Aumenta el stock de un producto existente.
+      </p>
 
-      <main className="admin-main">
-        <h1>Restock de productos</h1>
-        <p className="admin-subtitle">
-          Aumenta el stock de un producto existente.
-        </p>
+      {error && <div className="auth-error">{error}</div>}
+      {success && <div className="auth-success">{success}</div>}
 
-        {error && <div className="auth-error">{error}</div>}
-        {success && <div className="auth-success">{success}</div>}
+      <form onSubmit={handleSubmit} className="admin-form">
+        <label className="admin-label">
+          Producto
+          <select
+            className="admin-select"
+            value={selectedId}
+            onChange={(e) => setSelectedId(e.target.value)}
+          >
+            {products.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.name} (Stock actual: {p.stock})
+              </option>
+            ))}
+          </select>
+        </label>
 
-        <form onSubmit={handleSubmit} className="admin-form">
-          <label className="admin-label">
-            Producto
-            <select
-              className="admin-select"
-              value={selectedId}
-              onChange={(e) => setSelectedId(e.target.value)}
-            >
-              {products.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.name} (Stock actual: {p.stock})
-                </option>
-              ))}
-            </select>
-          </label>
+        <label className="admin-label">
+          Cantidad a agregar
+          <input
+            type="number"
+            min="1"
+            className="admin-input"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            required
+          />
+        </label>
 
-          <label className="admin-label">
-            Cantidad a agregar
-            <input
-              type="number"
-              min="1"
-              className="admin-input"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              required
-            />
-          </label>
-
-          <button type="submit" className="auth-button" disabled={loading}>
-            {loading ? "Actualizando..." : "Actualizar stock"}
-          </button>
-        </form>
-      </main>
-    </div>
+        <button type="submit" className="auth-button" disabled={loading}>
+          {loading ? "Actualizando..." : "Actualizar stock"}
+        </button>
+      </form>
+    </Layout>
   );
 }
 
