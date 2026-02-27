@@ -28,6 +28,11 @@ function Layout({ children, mainClassName, rightSlot }) {
     authArea = (
       <>
         <span className="products-nav-link">Hola, {user.name}</span>
+        {user.role === "admin" && (
+          <Link to="/admin/restock" className="products-nav-link">
+            Restock
+          </Link>
+        )}
         <button
           type="button"
           className="products-nav-link layout-logout-button"
