@@ -1,4 +1,4 @@
-/* MARK: Global reset & base */
+/* MARK: Reset global de toda la vida*/
 *,
 *::before,
 *::after {
@@ -21,7 +21,7 @@ a:hover {
   text-decoration: underline;
 }
 
-/* MARK: Auth (Login & Register) */
+/* MARK:Login y register */
 
 .auth-page {
   min-height: 100vh;
@@ -137,7 +137,7 @@ a:hover {
   text-align: center;
 }
 
-/* MARK: Products - List & layout */
+/* MARK: Productos */
 
 .products-page,
 .product-detail-page {
@@ -305,7 +305,7 @@ a:hover {
   max-width: 420px;
 }
 
-/* MARK: Product Detail */
+/* MARK: Detalles del producto */
 
 .product-detail-main {
   flex: 1;
@@ -387,7 +387,7 @@ a:hover {
   cursor: default;
 }
 
-/* MARK: Cart, Checkout & Admin */
+/* MARK: Carrito checkout y admin */
 
 .cart-page,
 .checkout-page,
@@ -516,6 +516,15 @@ a:hover {
   border: none;
   background: #1e40af;
   color: #ffffff;
+}
+
+.layout-footer {
+  padding: 1rem 2rem;
+  font-size: 0.8rem;
+  color: #64748b;
+  border-top: 1px solid #e2e8f0;
+  background: #f9fafb;
+  text-align: center;
 }
 
 .admin-subtitle {
