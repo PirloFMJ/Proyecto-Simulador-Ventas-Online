@@ -1,6 +1,5 @@
 // MARK: ProductsPage - catálogo de productos con filtro y botón de agregar al carrito
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import CategoryFilter from "../components/CategoryFilter";
 import ProductCard from "../components/ProductCard";
@@ -42,19 +41,7 @@ function ProductsPage() {
     category === "all" ? products : products.filter((p) => p.category === category);
 
   return (
-    <Layout
-      mainClassName="products-main"
-      rightSlot={
-        <>
-          <Link to="/login" className="products-nav-link">
-            Iniciar sesión
-          </Link>
-          <Link to="/register" className="products-nav-link">
-            Crear cuenta
-          </Link>
-        </>
-      }
-    >
+    <Layout mainClassName="products-main">
       <section className="products-hero">
         <h1>Catálogo de tecnología</h1>
         <p>Explora los productos disponibles en Circuit.</p>

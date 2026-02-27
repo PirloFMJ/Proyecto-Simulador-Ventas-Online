@@ -196,6 +196,13 @@ a:hover {
   font-weight: 500;
 }
 
+.layout-logout-button {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
 .products-main {
   flex: 1;
   padding: 2rem clamp(1.5rem, 4vw, 3rem);
@@ -516,6 +523,27 @@ a:hover {
   border: none;
   background: #1e40af;
   color: #ffffff;
+}
+
+.header-cart {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.header-cart-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 600;
 }
 
 .layout-footer {
