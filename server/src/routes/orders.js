@@ -75,8 +75,8 @@ router.post("/checkout", authMiddleware, async (req, res) => {
     // Enviar correo al admin (si SMTP está configurado)
     try {
       await sendOrderEmail({
-        to: req.user.email, // podrías cambiar esto a un correo fijo de admin si prefieres
-        customerEmail: req.user.email,
+        to: process.env.ADMIN_EMAIL || process.env.SMTP_USER, // Enviar al administrador
+        customerEmail: req.user.email, // Correo del cliente que hizo el pedido
         items: detailedItems,
         total
       });
