@@ -1,15 +1,19 @@
+// MARK: LoginPage - formulario de inicio de sesión y llamada a /api/auth/login
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function LoginPage() {
+  // Obtenemos la función login del contexto de autenticación
   const { login } = useAuth();
   const navigate = useNavigate();
+  // Estado local para los campos del formulario y feedback al usuario
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Envía las credenciales al backend y, si son correctas, redirige al catálogo
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");

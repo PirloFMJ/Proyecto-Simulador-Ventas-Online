@@ -1,10 +1,13 @@
+// MARK: RegisterPage - formulario de registro y llamada a /api/auth/register
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function RegisterPage() {
+  // Obtenemos la función register del contexto de autenticación
   const { register } = useAuth();
   const navigate = useNavigate();
+  // Estado local para los campos del formulario y feedback al usuario
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,6 +15,7 @@ function RegisterPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+  // Envía los datos al backend para crear un nuevo usuario
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");

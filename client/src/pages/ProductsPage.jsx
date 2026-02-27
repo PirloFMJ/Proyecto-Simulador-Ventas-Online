@@ -1,8 +1,12 @@
+// MARK: ProductsPage - catálogo de productos con filtro y botón de agregar al carrito
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/CartContext";
 
+// URL base del backend para las llamadas a la API
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
+// Traduce el slug de categoría a un texto legible
 function formatCategory(slug) {
   switch (slug) {
     case "laptops":
@@ -19,11 +23,15 @@ function formatCategory(slug) {
 }
 
 function ProductsPage() {
+  // Estado local para la lista de productos, estado de carga, error y categoría activa
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [category, setCategory] = useState("all");
+  // Desde el contexto de carrito obtenemos la función para agregar productos
+  const { addItem } = useCart();
 
+  // Al montar el componente, cargamos los productos desde el backend
   useEffect(() => {
     const load = async () => {
       try {
@@ -42,12 +50,12 @@ function ProductsPage() {
     load();
   }, []);
 
+  // Construimos la lista de categorías a partir de los productos cargados
   const categories = ["all", ...Array.from(new Set(products.map((p) => p.category)))];
 
+  // Aplicamos el filtro de categoría seleccionado
   const filtered =
-    category === "all"
-      ? products
-      : products.filter((p) => p.category === category);
+    category === "all" ? products : products.filter((p) => p.category === category);
 
   return (
     <div className="products-page">
@@ -107,12 +115,22 @@ function ProductsPage() {
                     Stock: {product.stock}
                   </span>
                 </div>
-                <Link
-                  to={`/producto/${product.id}`}
-                  className="product-link"
-                >
-                  Ver detalle
-                </Link>
+                <div className="product-actions">
+                  <button
+                    type="button"
+                    className="product-add-button"
+                    onClick={() => addItem(product, 1)}
+                    disabled={product.stock === 0}
+                  >
+                    {product.stock === 0 ? "Sin stock" : "Agregar al carrito"}
+                  </button>
+                  <Link
+                    to={`/producto/${product.id}`}
+                    className="product-link"
+                  >
+                    Ver detalle
+                  </Link>
+                </div>
               </article>
             ))}
             {filtered.length === 0 && (

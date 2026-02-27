@@ -1,8 +1,11 @@
+// MARK: ProductDetailPage - detalle de un producto individual
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
+// URL base del backend para las llamadas a la API
 const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
+// Traduce el slug de categoría a un texto legible
 function formatCategory(slug) {
   switch (slug) {
     case "laptops":
@@ -19,11 +22,14 @@ function formatCategory(slug) {
 }
 
 function ProductDetailPage() {
+  // Leemos el id de producto desde la URL (/producto/:id)
   const { id } = useParams();
+  // Estado local para el producto, la carga y posibles errores
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  // Cada vez que cambie el id, pedimos al backend el detalle de ese producto
   useEffect(() => {
     const load = async () => {
       try {
